@@ -71,10 +71,15 @@ img {
 }
 
 .header {
-      display: block;
+      display: flex;
       text-align: center;
       font-size: 30px;
-      margin: 10px 0;
+      margin: 10px;
+
+      .dropdown {
+            padding-right: 4rem;
+      }
+
 }
 
 .summary {

@@ -2,7 +2,6 @@ import {
   Navbar,
   Container,
   NavbarBrand,
-  FormControl,
   Dropdown,
   Badge,
   Button,
@@ -21,18 +20,12 @@ const Header = () => {
 
   return (
     <Navbar bg="dark" variant="dark">
-      <Container>
+      <Container className="header">
         <NavbarBrand>
           <a href="/">Home</a>
         </NavbarBrand>
-        <Navbar.Text className="search">
-          <FormControl
-            placeholder="Search product"
-            className="m-auto"
-            style={{ width: 500 }}
-          />
-        </Navbar.Text>
-        <Dropdown>
+
+        <Dropdown className="dropdown">
           <Dropdown.Toggle variant="success" id="dropdown-basic">
             <FaShoppingCart />
             <Badge bg="success">{cart.length}</Badge>

@@ -4,24 +4,14 @@ import SingleProduct from "./SingleProduct";
 
 const Products = () => {
   const {
-    state: { products, sort },
+    state: { products },
   } = CartState();
 
-  const sortProducts = () => {
-    let sortedProducts = products;
-
-    if (sort) {
-      sortedProducts = sortedProducts.sort((a, b) =>
-        sort === "lowToHigh" ? a.price - b.price : b.price - a.price
-      );
-    }
-    return sortedProducts;
-  };
   return (
     <div className="productPage">
       <Filters />
       <div className="productContainer">
-        {sortProducts().map((product) => (
+        {products.map((product) => (
           <SingleProduct product={product} key={product.id} />
         ))}
       </div>
