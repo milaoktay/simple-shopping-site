@@ -1,6 +1,7 @@
 import { CartState } from "../context/Context";
 import Filters from "./Filters";
 import SingleProduct from "./SingleProduct";
+import { Col, Row } from "react-bootstrap";
 
 const Products = () => {
   const {
@@ -9,12 +10,14 @@ const Products = () => {
 
   return (
     <div className="productPage">
-      <Filters />
-      <div className="productContainer">
+      {products.length > 0 && <Filters />}
+      <Row md={2} xs={1} lg={3} className="g-3 productContainer">
         {products.map((product) => (
-          <SingleProduct product={product} key={product.id} />
+          <Col key={product.id}>
+            <SingleProduct product={product} key={product.id} />
+          </Col>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };

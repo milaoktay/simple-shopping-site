@@ -1,82 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { Button, ListGroup, Row, Col, Form, Image } from "react-bootstrap";
-import { AiFillDelete } from "react-icons/ai";
+import { Offcanvas, Stack, Button } from "react-bootstrap";
 import { CartState } from "../context/Context";
+import SingleProduct from "./SingleProduct";
 
-const Cart = () => {
+const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
+  currency: "USD",
+  style: "currency",
+});
+
+export function formatCurrency(number) {
+  return CURRENCY_FORMATTER.format(number);
+}
+
+export function ShoppingCart() {
   const {
-    state: { cart },
+    state: { products, cart, isOpen },
     dispatch,
   } = CartState();
 
-  const [total, setTotal] = useState();
-
-  useEffect(() => {
-    setTotal(
-      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
-    );
-  }, [cart]);
-
   return (
-    <div className="productPage">
-      <div className="productContainer">
-        <ListGroup>
-          {cart.map((prod) => (
-            <ListGroup.Item key={prod.id}>
-              <Row>
-                <Col md={2}>
-                  <Image src={prod.image} alt={prod.title} fluid rounded />
-                </Col>
-                <Col md={2}>
-                  <span>{prod.title}</span>
-                </Col>
-                <Col md={2}>{prod.price}€</Col>
-
-                <Col md={2}>
-                  <Form.Control
-                    as="select"
-                    value={prod.qty}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "CHANGE_CART_QTY",
-                        payload: {
-                          id: prod.id,
-                          qty: e.target.value,
-                        },
-                      })
-                    }
-                  >
-                    <option>1</option>
-                  </Form.Control>
-                </Col>
-                <Col md={2}>
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() =>
-                      dispatch({
-                        type: "REMOVE_FROM_CART",
-                        payload: prod,
-                      })
-                    }
-                  >
-                    <AiFillDelete fontSize="20px" />
-                  </Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
+    <Offcanvas
+      show={isOpen}
+      onHide={() =>
+        dispatch({
+          type: "TOGGLE_CART",
+          payload: isOpen,
+        })
+      }
+      placement="end"
+    >
+      <Offcanvas.Header closeButton>
+        <Offcanvas.Title>Cart</Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
+        <Stack gap={3}>
+          {cart.map((item) => (
+            <SingleProduct product={item} key={item.id} />
           ))}
-        </ListGroup>
-      </div>
-      <div className="filters summary">
-        <span className="title">Total {cart.length} items</span>
-        <span style={{ fontWeight: 700, fontSize: 20 }}>Total: {total}€</span>
-        <Button type="button" disabled={cart.length === 0}>
+          <div className="ms-auto fw-bold fs-5">
+            Total{" "}
+            {formatCurrency(
+              cart.reduce((total, cartItem) => {
+                const item = products.find((i) => i.id === cartItem.id);
+                return total + (item?.price || 0) * cartItem.qty;
+              }, 0)
+            )}
+          </div>
+        </Stack>
+        <Button type="button" disabled={cart.length === 0} variant="success">
           Proceed to Checkout
         </Button>
-      </div>
-    </div>
+      </Offcanvas.Body>
+    </Offcanvas>
   );
-};
-
-export default Cart;
+}

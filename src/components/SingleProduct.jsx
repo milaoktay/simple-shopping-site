@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { CartState } from "../context/Context";
+import { formatCurrency } from "./Cart";
 
 const SingleProduct = ({ product }) => {
   const {
@@ -15,20 +16,49 @@ const SingleProduct = ({ product }) => {
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
           <Card.Subtitle style={{ paddingBottom: 10 }}>
-            <span>{product.price}€</span>
+            <span>{formatCurrency(product.price)}</span>
           </Card.Subtitle>
           {cart.some((p) => p.id === product.id) ? (
-            <Button
-              variant="secondary"
-              onClick={() =>
-                dispatch({
-                  type: "REMOVE_FROM_CART",
-                  payload: product,
-                })
-              }
-            >
-              Remove from Cart
-            </Button>
+            <div>
+              <div className="d-flex mb-3" style={{ gap: ".5rem" }}>
+                <Button
+                  variant="success"
+                  onClick={() =>
+                    dispatch({
+                      type: "DECREASE_QTY",
+                      payload: product,
+                    })
+                  }
+                >
+                  -
+                </Button>
+                <div>
+                  <span className="fs-3">{product.qty}</span> in cart
+                </div>
+                <Button
+                  variant="success"
+                  onClick={() =>
+                    dispatch({
+                      type: "INCREASE_QTY",
+                      payload: product,
+                    })
+                  }
+                >
+                  +
+                </Button>
+              </div>
+              <Button
+                variant="outline-secondary"
+                onClick={() =>
+                  dispatch({
+                    type: "REMOVE_FROM_CART",
+                    payload: product,
+                  })
+                }
+              >
+                Remove
+              </Button>
+            </div>
           ) : (
             <Button
               variant="success"

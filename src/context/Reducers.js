@@ -9,17 +9,31 @@ export const cartReducer = (state, action) => {
         ...state,
         cart: state.cart.filter((ele) => ele.id !== action.payload.id),
       };
-    case "CHANGE_CART_QTY":
+    case "INCREASE_QTY":
       return {
         ...state,
         cart: state.cart.filter((ele) =>
-          ele.id === action.payload.id
-            ? (ele.qty = action.payload.qty)
-            : ele.qty
+          ele.id === action.payload.id ? ele.qty++ : ele.qty
         ),
+      };
+    case "DECREASE_QTY":
+      return {
+        ...state,
+        cart: state.cart.filter((ele) => {
+          if (ele.id === action.payload.id) {
+            if (ele.qty > 1) {
+              ele.qty--;
+              console.log(ele.qty);
+            } else {
+              ele.id !== action.payload.id;
+            }
+          }
+        }),
       };
     case "SORT_BY_PRICE":
       return { ...state, sort: action.payload };
+    case "TOGGLE_CART":
+      return { ...state, isOpen: !action.payload };
     default:
       return { ...state };
   }

@@ -1,24 +1,22 @@
 .productPage {
       display: flex;
+
 }
 
 .productContainer {
-      display: flex;
-      width: 78%;
-      padding: 1.2rem;
-      flex-wrap: wrap;
-      justify-content: space-around;
+
+      padding: 10px;
 }
 
 .filters {
-      background-color: #343a40;
+      background-color: #464f58;
       color: white;
       padding: 20px;
       display: flex;
       flex-direction: column;
-      width: 20%;
+
       margin: 10px;
-      height: 86vh;
+      height: 70vh;
 
       span {
             padding-bottom: 20px;
@@ -29,24 +27,12 @@
       font-size: 30px;
 }
 
-.products {
-
-      width: 20vw;
-      margin: 10px;
-      padding: 10px;
-
-}
-
-.card {
-      height: auto;
-}
-
 img {
       height: 20rem;
       object-fit: contain;
       margin: 1rem;
-}
 
+}
 
 .cartitem {
       display: flex;
@@ -70,15 +56,16 @@ img {
       flex-direction: column;
 }
 
+.navbar {
+      background-color: #6e7d8c21;
+      position: sticky;
+}
+
 .header {
       display: flex;
       text-align: center;
-      font-size: 30px;
+      font-size: 40px;
       margin: 10px;
-
-      .dropdown {
-            padding-right: 4rem;
-      }
 
 }
 
@@ -111,9 +98,7 @@ img {
             display: none !important;
       }
 
-      .products {
-            width: 100%;
-      }
+      .products {}
 }
 
 a {
