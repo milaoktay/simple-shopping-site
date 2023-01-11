@@ -22,8 +22,7 @@ export const cartReducer = (state, action) => {
         cart: state.cart.filter((ele) => {
           if (ele.id === action.payload.id) {
             if (ele.qty > 1) {
-              ele.qty--;
-              console.log(ele.qty);
+              return ele.qty--;
             } else {
               ele.id !== action.payload.id;
             }

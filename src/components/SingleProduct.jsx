@@ -9,6 +9,12 @@ const SingleProduct = ({ product }) => {
     dispatch,
   } = CartState();
 
+  function getItemQuantity(id) {
+    return cart.find((item) => item.id === id)?.qty || 0;
+  }
+  const quantity = getItemQuantity(product.id);
+
+  console.log(quantity);
   return (
     <div className="products">
       <Card>
@@ -33,7 +39,7 @@ const SingleProduct = ({ product }) => {
                   -
                 </Button>
                 <div>
-                  <span className="fs-3">{product.qty}</span> in cart
+                  <span className="fs-3">{quantity}</span> in cart
                 </div>
                 <Button
                   variant="success"
