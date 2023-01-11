@@ -14,7 +14,6 @@ const SingleProduct = ({ product }) => {
   }
   const quantity = getItemQuantity(product.id);
 
-  console.log(quantity);
   return (
     <div className="products">
       <Card>
