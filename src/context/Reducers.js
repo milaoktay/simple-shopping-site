@@ -24,8 +24,10 @@ export const cartReducer = (state, action) => {
             if (ele.qty > 1) {
               return ele.qty--;
             } else {
-              ele.id !== action.payload.id;
+              return ele.id !== action.payload.id;
             }
+          } else {
+            return ele.qty;
           }
         }),
       };

@@ -38,7 +38,6 @@ const Context = ({ children }) => {
     }
   }, [sort]);
 
-  console.log(state);
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}
