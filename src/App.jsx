@@ -8,11 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/products" element={<Products />}></Route>
-
-        <Route path="/" element={<Navigate to="products" replace />} />
-      </Routes>
+      <Products />
     </BrowserRouter>
   );
 }
